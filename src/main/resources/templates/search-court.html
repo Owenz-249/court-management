@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court Search</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Court Search</h1>
+  <form th:action="@{/search-court}" method="post" th:object="${searchForm}">
+    <div class="form-group">
+      <label for="kipTime">Kip Time:</label>
+      <select class="form-control" id="kipTime" name="kipTime" th:field="*{kipTime}">
+        <option value="1">Kip 1 (7h-9h)</option>
+        <option value="2">Kip 2 (9h-11h)</option>
+        <option value="3">Kip 3 (14h-16h)</option>
+        <option value="4">Kip 4 (16h-18h)</option>
+        <option value="5">Kip 5 (18h-20h)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="courtType">Type of Court:</label>
+      <select class="form-control" id="courtType" name="courtType" th:field="*{courtType}">
+        <option value="normal">Normal</option>
+        <option value="vip">VIP</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="dayBegin">Day Begin:</label>
+      <input type="date" class="form-control" id="dayBegin" name="dayBegin" th:field="*{dayBegin}">
+    </div>
+
+    <div class="form-group">
+      <label for="dayEnd">Day End:</label>
+      <input type="date" class="form-control" id="dayEnd" name="dayEnd" th:field="*{dayEnd}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 20px;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    div.availability {
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #28a745;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+
+
+<body>
+<div>
+  <div>
+    <h2>Search Results</h2>
+    <form th:action="@{/booking}" method="post">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Fee(Per hour)</th>
+          <th>Availability List</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate through searchResults and display court information -->
+        <tr th:each="court : ${searchResults}">
+          <td th:text="${court.name}"></td>
+          <td th:text="${court.type}"></td>
+          <td th:text="${court.fee}"></td>
+          <td>
+            <ul>
+              <li th:each="availability : ${court.availabilityList}">
+                <div class="availability">
+            <span class="kiptime">
+                <span th:switch="${availability.kipTime}">
+                    <span th:case="1">Kip 1 (7h-9h)</span>
+                    <span th:case="2">Kip 2 (9h-11h)</span>
+                    <span th:case="3">Kip 3 (14h-16h)</span>
+                    <span th:case="4">Kip 4 (16h-18h)</span>
+                    <span th:case="5">Kip 5 (18h-20h)</span>
+                    <span th:case="*">(Unknown)</span>
+                </span>
+            </span>
+
+                  <span class="dayAvailable" th:text="${'Day available: ' + availability.dayAvailable}"></span>
+                  <input type="checkbox" th:name="selectedCourts" th:value="${court.id}" />
+                </div>
+              </li>
+            </ul>
+
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- Add a Confirm button -->
+      <button type="submit" class="btn btn-primary">Confirm Selection</button>
+    </form>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</div>
+</body>
+
+</html>

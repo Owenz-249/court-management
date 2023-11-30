@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- Bootstrap Datepicker CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <!-- Custom CSS for styling -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+      padding: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .datepicker {
+      width: 100%;
+    }
+
+    .row-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn-primary,
+    .btn-success {
+      width: 120px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1 class="text-center">User Profile</h1>
+  <div class="card">
+    <div class="card-body">
+      <form id="profileForm" th:object="${user}" th:action="@{/profile}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" th:value="${user.name}" required disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" name="username" th:value="${user.username}" required disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input class="form-control" id="email" name="email" rows="3" th:field="${user.email}" disabled></input>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" class="form-control" id="address" name="address" th:value="${user.address}" required disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of birth:</label>
+          <input type="date" class="form-control" name="dob" id="dob" th:value="${#dates.format(user.dob, 'yyyy-MM-dd')}" disabled required>
+        </div>
+
+        <div class="row justify-content-center">
+          <button id="editBtn" class="btn btn-primary mr-2">Edit</button>
+          <button type="submit" id="saveBtn" class="btn btn-success" style="display: none;">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- Bootstrap Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+  var isEditMode = false;
+
+  $(document).ready(function () {
+    // Initialize datepicker
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true
+    });
+  });
+
+  // Edit button click event
+  document.getElementById("editBtn").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var editBtn = document.getElementById("editBtn");
+    var saveBtn = document.getElementById("saveBtn");
+
+    if (!isEditMode) {
+      // Enable all fields
+      enableFields();
+      editBtn.innerHTML = "Cancel";
+      saveBtn.style.display = "inline-block";
+    } else {
+      // Disable all fields
+      disableFields();
+      editBtn.innerHTML = "Edit";
+      saveBtn.style.display = "none";
+    }
+
+    isEditMode = !isEditMode;
+  });
+
+  // Enable all fields
+  function enableFields() {
+    document.getElementById("name").disabled = false;
+    document.getElementById("username").disabled = false;
+    document.getElementById("email").disabled = false;
+    document.getElementById("address").disabled = false;
+    document.getElementById("dob").disabled = false;
+  }
+
+  // Disable all fields
+  function disableFields() {
+    document.getElementById("name").disabled = true;
+    document.getElementById("username").disabled = true;
+    document.getElementById("email").disabled = true;
+    document.getElementById("address").disabled = true;
+    document.getElementById("dob").disabled = true;
+  }
+
+  document.getElementById("editBtn").addEventListener("click", function () {
+    if (!isEditMode) {
+      // Reset the form
+      disableFields();
+      isEditMode = false;
+    }
+  });
+
+</script>
+
+</body>
+
+</html>

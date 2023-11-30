@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+
+    h1 {
+      text-align: center; /* Center the text */
+      margin-top: 20px; /* Add margin at the top */
+      font-family: 'Arial', sans-serif; /* Specify a font family */
+    }
+
+    h1 i {
+      font-weight: bold;
+      color: #007bff; /* Use a different color for the user name */
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-around mx-auto" style="justify-content: space-between">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav text-center">
+      <li class="nav-item mx-3">
+        <a style="font-weight: bold; color:white" class="nav-link" href="/profile">Profile</a>
+      </li>
+      <li class="nav-item mx-3">
+        <a style="font-weight: bold; color:white" class="nav-link" href="/search-court">Search & Book Court</a>
+      </li>
+      <li class="nav-item mx-3">
+        <a style="font-weight: bold; color:white" class="nav-link" href="/history-booking">History Booking</a>
+      </li>
+      <li class="nav-item mx-3">
+        <a style="font-weight: bold; color:white" class="nav-link" href="/logout">Log out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<h1>
+  <i>Welcome</i> <i style="font-weight: bold;" th:text="${user.name}" class="fa fa-user"></i>
+</h1>
+</body>
+</html>
